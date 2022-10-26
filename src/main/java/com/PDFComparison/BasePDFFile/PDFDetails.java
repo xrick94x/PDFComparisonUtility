@@ -28,6 +28,11 @@ public class PDFDetails implements BaseFile {
 		{
 			_pddocument = PDDocument.load(_file);      
 		}
+		else
+		{
+			throw new IOException("File at "+filepath+" can't be accessed");
+		}
+		
 	}
 
 	public String getFileName() {

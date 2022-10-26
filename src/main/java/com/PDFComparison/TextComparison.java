@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.naming.directory.InvalidAttributeValueException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -14,7 +16,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import com.PDFComparison.BasePDFFile.Comparison;
 import com.PDFComparison.BasePDFFile.PDFDetails;
 
-public class TextComparison extends Comparison {
+class TextComparison extends Comparison {
 	
 	protected HashMap<Integer, String> differenceMap;
 	
@@ -35,8 +37,11 @@ public class TextComparison extends Comparison {
 			return text;
 		}
 		
-		protected String ignoreText(String text, String expectedPDFText)
+		protected String ignoreText(String text, String expectedPDFText) throws InvalidAttributeValueException
 		{
+			if(text==null || expectedPDFText == null){
+				throw new InvalidAttributeValueException("Text or expectedPDFText can't be null");
+			}
 			String finalText=expectedPDFText;
 			String[] arr = text.split(",");
 			List<String> textList = java.util.Arrays.asList(arr);
@@ -71,28 +76,29 @@ public class TextComparison extends Comparison {
 
 	
 	@Override
-	public HashMap<Integer, String> Text(PDFFile basePdffile, PDFFile actualPdffile, String textToIgnore) throws IOException {
+	public HashMap<Integer, String> CompareUsingText(PDFFile basePdffile, PDFFile actualPdffile, String textToIgnore) throws IOException, InvalidAttributeValueException {
 		
 		PDFDetails basePdf = basePdffile.getDetails();
 		PDFDetails actualPdf = actualPdffile.getDetails();
-		differenceMap = new HashMap<>();
-		docList = new ArrayList<>();
+		differenceMap = new HashMap<Integer, String>();
+		docList = new ArrayList<PDDocument>();
 		if(basePdf.getFileType().toLowerCase().equals(actualPdf.getFileType().toLowerCase()))
 		{	
 			String fileType = basePdf.getFileType().toLowerCase();
 			boolean areEqual = false;
 			String textdiff = "";	
 			
-			switch (fileType) {
-			case "pdf": {
-				
+			if(fileType.contains("pdf")) {
+
 				System.out.println("Comparing Files - "+basePdf.getFileName()+" and "+actualPdf.getFileName());
 				int baseCount = basePdf.getNoOfPages();
 				int actCount = actualPdf.getNoOfPages();
 				areEqual = baseCount == actCount ? true:false;
 				if(!areEqual)
 				{
-					 System.out.println("BaseLine and Actual PDFs pages counts are not equal");
+					 System.out.println("BaseLine and Actual PDFs pages' count are not equal");
+					 System.out.println("Baseline's file page count "+baseCount);
+					 System.out.println("Actual file's page count "+actCount);
 					 return differenceMap;
 				}
 	            PDDocument expectedPdf = basePdf.getPdfDocument();
@@ -111,13 +117,12 @@ public class TextComparison extends Comparison {
 	   			 else
 	   			 {
 	   				differenceMap.put(i, textdiff); 
-	   				System.out.println("No difference found on page - "+(i+1));
 	   			 }
 	            }
 	  
 			 }
 		 }
-		}	
+			
 	  return differenceMap;
 	}
 		

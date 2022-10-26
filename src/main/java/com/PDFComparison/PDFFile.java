@@ -29,10 +29,6 @@ public class PDFFile  {
 		return details;
 	}
 
-	public Comparison compareUsing() {
-		return comparison;
-	}
-
 	public TextFinder get() throws NullPointerException, IOException {
 		return textFinder;
 	}

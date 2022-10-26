@@ -4,14 +4,9 @@ import java.util.HashMap;
 
 import com.PDFComparison.PDFFile;
 
-public abstract class Comparison extends PDFDetails{
-
-	protected String getfileType()
-	{
-	  return super.getFileType();	
-	}
+public abstract class Comparison {
 		
-	public abstract HashMap<Integer, String> Text(PDFFile pf, PDFFile pf2, String ignoreText) throws Exception;
+	public abstract HashMap<Integer, String> CompareUsingText(PDFFile pf, PDFFile pf2, String ignoreText) throws Exception;
 	    
 }
 
