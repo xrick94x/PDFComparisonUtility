@@ -16,7 +16,12 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import com.PDFComparison.BasePDFFile.Comparison;
 import com.PDFComparison.BasePDFFile.PDFDetails;
 
-class TextComparison extends Comparison {
+public class TextComparison extends Comparison {
+	
+	public TextComparison()
+	{
+		
+	}
 	
 	protected HashMap<Integer, String> differenceMap;
 	
@@ -37,17 +42,16 @@ class TextComparison extends Comparison {
 			return text;
 		}
 		
-		protected String ignoreText(String text, String expectedPDFText) throws InvalidAttributeValueException
+		protected String ignoreText(List<String> text, String expectedPDFText) throws InvalidAttributeValueException
 		{
 			if(text==null || expectedPDFText == null){
 				throw new InvalidAttributeValueException("Text or expectedPDFText can't be null");
 			}
 			String finalText=expectedPDFText;
-			String[] arr = text.split(",");
-			List<String> textList = java.util.Arrays.asList(arr);
-			for (int i =0; i <textList.size(); i++)
+		
+			for (int i =0; i <text.size(); i++)
 			{
-				String regex = getRegex(textList.get(i));
+				String regex = getRegex(text.get(i));
 				Pattern reg = Pattern.compile(regex);
 				Matcher match = reg.matcher(finalText);
 				finalText = match.replaceAll("");	
@@ -76,7 +80,11 @@ class TextComparison extends Comparison {
 
 	
 	@Override
-	public HashMap<Integer, String> CompareUsingText(PDFFile basePdffile, PDFFile actualPdffile, String textToIgnore) throws IOException, InvalidAttributeValueException {
+	/**
+	 * Compare instances of two PDFFile and returns the differences found in a HashMap containing key as page number and
+	 * difference as value on that page
+	 */
+	public HashMap<Integer, String> CompareUsingText(PDFFile basePdffile, PDFFile actualPdffile, List<String> textToIgnore) throws IOException, InvalidAttributeValueException {
 		
 		PDFDetails basePdf = basePdffile.getDetails();
 		PDFDetails actualPdf = actualPdffile.getDetails();

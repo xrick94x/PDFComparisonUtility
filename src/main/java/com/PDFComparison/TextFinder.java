@@ -65,7 +65,7 @@ public class TextFinder {
 	         System.out.println("Extracting text of file- "+_details.getFileName());
 	         for (int i = 0; i < pagesCount; i++)
 	         {
-	        	 String text = _comparison.ignoreText("",_comparison.getTextFromPDF(i+1,pdfDoc));
+	        	 String text = _comparison.ignoreText(new ArrayList<String>(),_comparison.getTextFromPDF(i+1,pdfDoc));
 	        	 textMap.put(i+1, text);
 	         }
 	         pdfDoc.close();
@@ -95,7 +95,12 @@ public class TextFinder {
           return pageMap;
       }
      
-     
+     /**
+      * 
+      * @param text
+      * @return List of page numbers containing the given text
+      * @throws Exception
+      */
      public List<Integer> getPagesContainingText(String text) throws Exception
      {
     	 List<Integer> textFinder = new ArrayList<Integer>();
