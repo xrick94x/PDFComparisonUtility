@@ -107,17 +107,16 @@ public class TextFinder {
     	 if(textMap==null)
     	 {
     		getPDFPageMap();
-    	 }
-    	 else
-    	 {
-    		 for (int i =1; i < textMap.size(); i++)
-    		 {
-    			 if(textMap.get(i).contains(text))
-    			 {
-    				 textFinder.add(i);
-    			 }
-    		 }
-    	 }
+    	 }    	 
+		 for (int i =1; i < textMap.size(); i++)
+		 {
+			 if(textMap.get(i).contains(text))
+			 {
+				 System.out.println(".");
+				 textFinder.add(i);
+			 }
+		 }
+    	 
     	 return textFinder;
      }
 }
