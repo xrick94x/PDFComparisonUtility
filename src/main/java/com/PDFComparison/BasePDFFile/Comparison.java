@@ -13,7 +13,7 @@ public abstract class Comparison {
 	
 	public void CompareUsingImages(PDFFile pf, PDFFile pf2, List<String> ignoreText) 
 	{
-		
+		throw new NotImplementedException("It's not implemented yet");
 	}
 	    
 }
