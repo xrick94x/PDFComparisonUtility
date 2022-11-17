@@ -113,7 +113,7 @@ public class TextComparison extends Comparison {
 	            PDDocument newPdf = actualPdf.getPdfDocument();
 	            docList.add(expectedPdf);
 	            docList.add(newPdf);
-	            for(int i = 0; i < baseCount; i++) {
+	            for(int i = 0; i <=baseCount; i++) {
 	           	 String expectedPDFText = ignoreText(textToIgnore,getTextFromPDF(i+1,expectedPdf));
 	   			 String actualPDFText = ignoreText(textToIgnore,getTextFromPDF(i+1,newPdf));
 	   			 if(!expectedPDFText.equals(actualPDFText))
