@@ -1,6 +1,7 @@
 package com.PDFComparison;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,5 +33,6 @@ public class PDFFile  {
 	public TextFinder get() throws NullPointerException, IOException {
 		return textFinder;
 	}
+	
 
 }

@@ -63,7 +63,7 @@ public class TextFinder {
 	         textMap = new HashMap<Integer, String>();
 	         PDDocument pdfDoc = _details.getPdfDocument();
 	         System.out.println("Extracting text of file- "+_details.getFileName());
-	         for (int i = 0; i < pagesCount; i++)
+	         for (int i = 0; i <=pagesCount; i++)
 	         {
 	        	 String text = _comparison.ignoreText(new ArrayList<String>(),_comparison.getTextFromPDF(i+1,pdfDoc));
 	        	 textMap.put(i+1, text);
@@ -87,7 +87,7 @@ public class TextFinder {
         	  getPDFPageMap();
           }
           HashMap<Integer, String> pageMap = new HashMap<Integer, String>();
-          for (int i = 0; i < textMap.size(); i++)
+          for (int i = 0; i <=textMap.size(); i++)
 	       {
 	         pageMap.put((i+1), getMatchingText(textMap.get((i+1)),textToMatch));
 	       }
@@ -108,7 +108,7 @@ public class TextFinder {
     	 {
     		getPDFPageMap();
     	 }    	 
-		 for (int i =1; i < textMap.size(); i++)
+		 for (int i =1; i <=textMap.size(); i++)
 		 {
 			 if(textMap.get(i).contains(text))
 			 {
