@@ -33,6 +33,7 @@ public class TextFinder {
 		_details = new PDFDetails();
 		_details = details;
 		_comparison = new TextComparison();
+		
 	}
 	
 	private String getMatchingText(String text,String textToMatch) 

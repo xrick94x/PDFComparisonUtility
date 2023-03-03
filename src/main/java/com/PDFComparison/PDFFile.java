@@ -40,7 +40,6 @@ public class PDFFile  {
 	
 	public static void main(String[] args) throws Exception
 	{
-		//args = new String[]{"C:\\Users\\skum2\\Downloads\\CrimePDF.pdf","C:\\Users\\skum2\\Downloads\\CrimePDF (1).pdf","compareusingtext"};
 		PDFFile baseFile =new PDFFile(args[0]);
 		TextFinder basefinder = new TextFinder(baseFile.details);
 		if(args.length > 1 && new File(args[1]).isFile() ) {
